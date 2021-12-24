@@ -7,13 +7,13 @@ import org.embulk.spi.Column;
 import org.embulk.spi.type.Types;
 import org.embulk.util.config.ConfigMapper;
 import org.junit.Test;
-import com.google.common.base.Optional;
 
 import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -68,22 +68,22 @@ public class MarketoUtilsTest
     @Test
     public void getIdentityEndPoint()
     {
-        Optional<String> endpoint = Optional.absent();
-        String identityEndPoint = MarketoUtils.getIdentityEndPoint("accountId",endpoint);
+        Optional<String> endpoint = Optional.empty();
+        String identityEndPoint = MarketoUtils.getIdentityEndPoint("accountId", endpoint);
         assertEquals("https://accountId.mktorest.com/identity", identityEndPoint);
         Optional<String> endpoint2 = Optional.of("endpoint");
-        String identityEndPointUsingEndpoint = MarketoUtils.getIdentityEndPoint("accountId",endpoint2);
+        String identityEndPointUsingEndpoint = MarketoUtils.getIdentityEndPoint("accountId", endpoint2);
         assertEquals("endpoint/identity", identityEndPointUsingEndpoint);
     }
 
     @Test
     public void getEndPoint()
     {
-        Optional<String> endpoint = Optional.absent();
-        String endPoint = MarketoUtils.getEndPoint("accountId",endpoint);
+        Optional<String> endpoint = Optional.empty();
+        String endPoint = MarketoUtils.getEndPoint("accountId", endpoint);
         assertEquals("https://accountId.mktorest.com", endPoint);
         Optional<String> endpoint2 = Optional.of("endpoint");
-        String endPointUsingEndpoint = MarketoUtils.getEndPoint("accountId",endpoint2);
+        String endPointUsingEndpoint = MarketoUtils.getEndPoint("accountId", endpoint2);
         assertEquals("endpoint", endPointUsingEndpoint);
     }
 

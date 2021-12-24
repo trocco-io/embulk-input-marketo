@@ -10,6 +10,7 @@ com.google.code.findbugs:jsr305:3.0.1
 com.google.guava:guava:18.0
 javax.validation:validation-api:1.1.0.Final
 net.jcip:jcip-annotations:1.0
+org.apache.commons:commons-csv:1.8
 org.apache.commons:commons-lang3:3.4
 org.eclipse.jetty:jetty-client:9.2.14.v20151106
 org.eclipse.jetty:jetty-http:9.2.14.v20151106

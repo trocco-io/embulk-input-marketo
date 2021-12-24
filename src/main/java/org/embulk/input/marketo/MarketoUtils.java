@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.SerializableString;
 import com.fasterxml.jackson.core.io.CharacterEscapes;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.google.common.base.Optional;
 import com.google.common.base.Function;
 import com.google.common.collect.Sets;
 import org.embulk.base.restclient.ServiceResponseMapper;
@@ -25,6 +24,7 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
@@ -35,6 +35,7 @@ public class MarketoUtils
 {
     public static final String MARKETO_DATE_TIME_FORMAT = "%Y-%m-%dT%H:%M:%S%z";
     public static final String MARKETO_DATE_FORMAT = "%Y-%m-%d";
+    public static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     public static final Function<ObjectNode, ServiceRecord> TRANSFORM_OBJECT_TO_JACKSON_SERVICE_RECORD_FUNCTION = new Function<ObjectNode, ServiceRecord>()
     {
         @Nullable

@@ -13,6 +13,7 @@ import org.embulk.input.marketo.rest.MarketoRestClient;
 import org.embulk.input.marketo.rest.RecordPagingIterable;
 import org.embulk.spi.PageBuilder;
 import org.embulk.spi.Schema;
+import org.embulk.util.config.ConfigMapper;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -22,6 +23,7 @@ import org.mockito.Mockito;
 import java.io.IOException;
 import java.util.List;
 
+import static org.embulk.input.marketo.MarketoInputPlugin.CONFIG_MAPPER_FACTORY;
 import static org.junit.Assert.assertArrayEquals;
 
 public class ActivityTypeInputPluginTest
@@ -32,6 +34,8 @@ public class ActivityTypeInputPluginTest
     public EmbulkTestRuntime embulkTestRuntime = new EmbulkTestRuntime();
 
     private ConfigSource configSource;
+
+    public static final ConfigMapper CONFIG_MAPPER = CONFIG_MAPPER_FACTORY.createConfigMapper();
 
     private ActivityTypeInputPlugin activityTypeInputPlugin;
 
@@ -55,7 +59,7 @@ public class ActivityTypeInputPluginTest
         List<ObjectNode> objectNodeList = OBJECT_MAPPER.readValue(this.getClass().getResourceAsStream("/fixtures/activity_type_response_full.json"), javaType);
         Mockito.when(mockRecordPagingIterable.iterator()).thenReturn(objectNodeList.iterator());
         Mockito.when(mockMarketoRestClient.getActivityTypes()).thenReturn(mockRecordPagingIterable);
-        ActivityTypeInputPlugin.PluginTask task = configSource.loadConfig(ActivityTypeInputPlugin.PluginTask.class);
+        ActivityTypeInputPlugin.PluginTask task = CONFIG_MAPPER.map(configSource, ActivityTypeInputPlugin.PluginTask.class);
         ServiceResponseMapper<? extends ValueLocator> mapper = activityTypeInputPlugin.buildServiceResponseMapper(task);
         RecordImporter recordImporter = mapper.createRecordImporter();
         PageBuilder mockPageBuilder = Mockito.mock(PageBuilder.class);

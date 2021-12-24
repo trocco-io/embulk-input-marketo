@@ -148,8 +148,8 @@ public class MarketoRestClient extends MarketoBaseRestClient
 
     public MarketoRestClient(PluginTask task)
     {
-        this(MarketoUtils.getEndPoint(task.getAccountId(),task.getInputEndpoint()),
-                MarketoUtils.getIdentityEndPoint(task.getAccountId(),task.getInputEndpoint()),
+        this(MarketoUtils.getEndPoint(task.getAccountId(), task.getInputEndpoint()),
+                MarketoUtils.getIdentityEndPoint(task.getAccountId(), task.getInputEndpoint()),
                 task.getClientId(),
                 task.getClientSecret(),
                 task.getPartnerApiKey(),

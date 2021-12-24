@@ -11,9 +11,11 @@ import org.embulk.util.config.ConfigDefault;
 import org.embulk.util.config.Task;
 import org.embulk.util.text.LineDecoder;
 import org.embulk.util.text.Newline;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -35,7 +37,7 @@ import java.io.Reader;
  */
 public class CsvTokenizer
 {
-    private static final Logger LOGGER = Exec.getLogger(CsvTokenizer.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CsvTokenizer.class);
 
     enum RecordState
     {

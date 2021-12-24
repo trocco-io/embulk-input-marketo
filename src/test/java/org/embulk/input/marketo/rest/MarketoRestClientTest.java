@@ -9,7 +9,6 @@ import com.fasterxml.jackson.databind.node.TextNode;
 import com.google.common.collect.ImmutableListMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.io.ByteStreams;
-import com.google.common.base.Optional;
 import org.eclipse.jetty.client.api.ContentProvider;
 import org.eclipse.jetty.client.util.FormContentProvider;
 import org.embulk.EmbulkTestRuntime;
@@ -41,6 +40,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import static org.embulk.input.marketo.MarketoInputPlugin.CONFIG_MAPPER_FACTORY;
@@ -67,7 +67,7 @@ public class MarketoRestClientTest
 
     private static final String TEST_CLIENT_ID = "test_client_id";
 
-    private static final Optional<String> TEST_ENDPOINT = Optional.absent();
+    private static final Optional<String> TEST_ENDPOINT = Optional.empty();
 
     private static final String END_POINT = MarketoUtils.getEndPoint(TEST_ACCOUNT_ID,TEST_ENDPOINT);
 

@@ -14,13 +14,14 @@ import org.embulk.base.restclient.jackson.JacksonTopLevelValueLocator;
 import org.embulk.base.restclient.record.ServiceRecord;
 import org.embulk.base.restclient.record.ValueLocator;
 import org.embulk.input.marketo.model.MarketoField;
-import org.embulk.spi.Exec;
-import org.embulk.spi.util.RetryExecutor;
-import org.joda.time.DateTime;
+import org.embulk.util.retryhelper.RetryExecutor;
+import org.embulk.util.retryhelper.RetryGiveupException;
+import org.embulk.util.retryhelper.Retryable;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nullable;
-
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -115,11 +116,11 @@ public class MarketoUtils
         return prefix.isEmpty() ? columnName : prefix + "_" + columnName;
     }
 
-    public static final List<DateRange> sliceRange(DateTime fromDate, DateTime toDate, int rangeSize)
+    public static List<DateRange> sliceRange(OffsetDateTime fromDate, OffsetDateTime toDate, int rangeSize)
     {
         List<DateRange> ranges = new ArrayList<>();
         while (fromDate.isBefore(toDate)) {
-            DateTime nextToDate = fromDate.plusDays(rangeSize);
+            OffsetDateTime nextToDate = fromDate.plusDays(rangeSize);
             if (nextToDate.isAfter(toDate)) {
                 ranges.add(new DateRange(fromDate, toDate));
                 break;
@@ -150,10 +151,10 @@ public class MarketoUtils
 
     public static  final class DateRange
     {
-        public final DateTime fromDate;
-        public final DateTime toDate;
+        public final OffsetDateTime fromDate;
+        public final OffsetDateTime toDate;
 
-        public DateRange(DateTime fromDate, DateTime toDate)
+        public DateRange(OffsetDateTime fromDate, OffsetDateTime toDate)
         {
             this.fromDate = fromDate;
             this.toDate = toDate;
@@ -169,19 +170,19 @@ public class MarketoUtils
         }
     }
 
-    public static <T> T executeWithRetry(int maximumRetries, int initialRetryIntervalMillis, int maximumRetryIntervalMillis, AlwaysRetryRetryable<T> alwaysRetryRetryable) throws RetryExecutor.RetryGiveupException, InterruptedException
+    public static <T> T executeWithRetry(int maximumRetries, int initialRetryIntervalMillis, int maximumRetryIntervalMillis, AlwaysRetryRetryable<T> alwaysRetryRetryable) throws InterruptedException, RetryGiveupException
     {
-        return RetryExecutor
-                .retryExecutor()
+        return RetryExecutor.builder()
                 .withRetryLimit(maximumRetries)
-                .withInitialRetryWait(initialRetryIntervalMillis)
-                .withMaxRetryWait(maximumRetryIntervalMillis)
+                .withInitialRetryWaitMillis(initialRetryIntervalMillis)
+                .withMaxRetryWaitMillis(maximumRetryIntervalMillis)
+                .build()
                 .runInterruptible(alwaysRetryRetryable);
     }
 
-    public abstract static class AlwaysRetryRetryable<T> implements  RetryExecutor.Retryable<T>
+    public abstract static class AlwaysRetryRetryable<T> implements Retryable<T>
     {
-        private static final Logger LOGGER = Exec.getLogger(AlwaysRetryRetryable.class);
+        private static final Logger LOGGER = LoggerFactory.getLogger(AlwaysRetryRetryable.class);
 
         @Override
         public abstract T call() throws Exception;
@@ -193,13 +194,13 @@ public class MarketoUtils
         }
 
         @Override
-        public void onRetry(Exception exception, int retryCount, int retryLimit, int retryWait) throws RetryExecutor.RetryGiveupException
+        public void onRetry(Exception exception, int retryCount, int retryLimit, int retryWait) throws RetryGiveupException
         {
             LOGGER.info("Retry [{}]/[{}] with retryWait [{}] on exception {}", retryCount, retryLimit, retryWait, exception.getMessage());
         }
 
         @Override
-        public void onGiveup(Exception firstException, Exception lastException) throws RetryExecutor.RetryGiveupException
+        public void onGiveup(Exception firstException, Exception lastException) throws RetryGiveupException
         {
             LOGGER.info("Giving up execution on exception", lastException);
         }

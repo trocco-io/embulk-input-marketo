@@ -67,8 +67,8 @@ public class OpportunityInputPlugin extends MarketoBaseInputPluginDelegate<Oppor
     {
         JacksonServiceResponseMapper.Builder builder = JacksonServiceResponseMapper.builder();
         builder.add("marketoGUID", Types.STRING)
-		.add("createdAt", Types.TIMESTAMP, MarketoUtils.MARKETO_DATE_TIME_FORMAT)
-		.add("updatedAt", Types.TIMESTAMP, MarketoUtils.MARKETO_DATE_TIME_FORMAT)
+                .add("createdAt", Types.TIMESTAMP, MarketoUtils.MARKETO_DATE_TIME_FORMAT)
+                .add("updatedAt", Types.TIMESTAMP, MarketoUtils.MARKETO_DATE_TIME_FORMAT)
                 .add("externalOpportunityId", Types.STRING);
         return builder.build();
     }

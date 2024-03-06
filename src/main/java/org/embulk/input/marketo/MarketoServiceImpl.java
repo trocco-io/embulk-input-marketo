@@ -286,4 +286,27 @@ public class MarketoServiceImpl implements MarketoService
         Optional<String> root = rootId.isPresent() ? Optional.of(String.format("{\"id\": %d, \"type\": \"%s\"}", rootId.get(), type)) : Optional.empty();
         return marketoRestClient.getFolders(root, maxDepth, workspace);
     }
+
+    @Override
+    public Iterable<ObjectNode> getOpportunities(String filterType, Set<String> filterValues)
+    {
+        // Marketo allows maximum 300 (comma separated) filterValues per request. Split the input and process by chunk.
+        List<List<String>> partitionedFilterValues = Lists.partition(Lists.newArrayList(filterValues), 300);
+        return MarketoUtils.flatMap(partitionedFilterValues, (part) -> {
+            String strFilterValues = StringUtils.join(part, ",");
+            return marketoRestClient.getOpportunities(filterType, strFilterValues);
+        });
+    }
+
+    @Override
+    public Iterable<ObjectNode> getOpportunityRoles(String filterType, Set<String> filterValues)
+    {
+        // Marketo allows maximum 300 (comma separated) filterValues per request. Split the input and process by chunk.
+        List<List<String>> partitionedFilterValues = Lists.partition(Lists.newArrayList(filterValues), 300);
+        return MarketoUtils.flatMap(partitionedFilterValues, (part) -> {
+            String strFilterValues = StringUtils.join(part, ",");
+            return marketoRestClient.getOpportunityRoles(filterType, strFilterValues);
+        });
+    }
 }
+

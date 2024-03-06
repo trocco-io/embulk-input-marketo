@@ -52,4 +52,9 @@ public interface MarketoService
     File extractProgramMembers(String exportID);
 
     Iterable<ObjectNode> getFolders(Optional<Long> rootId, RootType rootType, Integer maxDepth, Optional<String> workspace);
+
+    Iterable<ObjectNode> getOpportunities(String filterType, Set<String> filterValues);
+
+    Iterable<ObjectNode> getOpportunityRoles(String filterType, Set<String> filterValues);
 }
+

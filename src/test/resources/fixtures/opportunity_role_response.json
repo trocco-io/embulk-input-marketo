@@ -1,0 +1,30 @@
+[
+  {
+    "seq": 0,
+    "marketoGUID": "marketoGUID_1",
+    "role": null,       
+    "externalOpportunityId": "externalOpportunityId_1",
+    "createdAt": "2022-12-06T04:11:14Z",
+    "updatedAt": "2022-12-06T04:11:14Z",
+    "leadId": 1
+  },
+  {
+    "seq": 1,
+    "marketoGUID": "marketoGUID_2",
+    "role": "Closing",
+    "externalOpportunityId": "externalOpportunityId_2",
+    "createdAt": "2022-12-06T04:11:14Z",
+    "updatedAt": "2022-12-06T04:11:14Z",
+    "leadId": 22
+  },
+  {
+    "seq": 2,
+    "marketoGUID": "marketoGUID_3",
+    "role": "Introducing",
+    "externalOpportunityId": "externalOpportunityId_3",
+    "createdAt": "2022-12-06T04:11:14Z",
+    "updatedAt": "2022-12-06T04:11:14Z",
+    "leadId": 33
+  }
+]
+

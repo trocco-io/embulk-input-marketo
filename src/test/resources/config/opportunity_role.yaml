@@ -1,0 +1,6 @@
+account_id: account_id
+client_id: client_id
+client_secret: client_secret
+opportunity_role_filter_type: opportunity_filter_type
+opportunity_role_filter_values: opportunity_filter_values
+

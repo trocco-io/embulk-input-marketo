@@ -643,4 +643,24 @@ public class MarketoRestClient extends MarketoBaseRestClient
         }
         return getRecordWithOffsetPagination(endPoint + MarketoRESTEndpoint.GET_FOLDERS.getEndpoint(), builder.build(), ObjectNode.class);
     }
+
+    public RecordPagingIterable<ObjectNode> getOpportunities(String filterType, String filterValue)
+    {
+        Multimap<String, String> params = new ImmutableListMultimap
+                .Builder<String, String>()
+                .put("filterType", StringUtils.trimToEmpty(filterType))
+                .put("filterValues", StringUtils.trimToEmpty(filterValue))
+                .put(BATCH_SIZE, MAX_BATCH_SIZE).build();
+        return getRecordWithTokenPagination(endPoint + MarketoRESTEndpoint.GET_OPPORTUNITIES.getEndpoint(), params, ObjectNode.class);
+    }
+
+    public RecordPagingIterable<ObjectNode> getOpportunityRoles(String filterType, String filterValue)
+    {
+        Multimap<String, String> params = new ImmutableListMultimap
+                .Builder<String, String>()
+                .put("filterType", StringUtils.trimToEmpty(filterType))
+                .put("filterValues", StringUtils.trimToEmpty(filterValue))
+                .put(BATCH_SIZE, MAX_BATCH_SIZE).build();
+        return getRecordWithTokenPagination(endPoint + MarketoRESTEndpoint.GET_OPPORTUNITY_ROLES.getEndpoint(), params, ObjectNode.class);
+    }
 }

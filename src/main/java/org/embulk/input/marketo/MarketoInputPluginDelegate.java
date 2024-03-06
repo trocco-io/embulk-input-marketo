@@ -15,6 +15,8 @@ import org.embulk.input.marketo.delegate.LeadBulkExtractInputPlugin;
 import org.embulk.input.marketo.delegate.LeadWithListInputPlugin;
 import org.embulk.input.marketo.delegate.LeadWithProgramInputPlugin;
 import org.embulk.input.marketo.delegate.ListInputPlugin;
+import org.embulk.input.marketo.delegate.OpportunityInputPlugin;
+import org.embulk.input.marketo.delegate.OpportunityRoleInputPlugin;
 import org.embulk.input.marketo.delegate.ProgramInputPlugin;
 import org.embulk.input.marketo.delegate.ProgramMembersBulkExtractInputPlugin;
 import org.embulk.input.marketo.rest.MarketoRestClient;
@@ -39,7 +41,9 @@ public class MarketoInputPluginDelegate
             ProgramMembersBulkExtractInputPlugin.PluginTask,
             ListInputPlugin.PluginTask,
             ActivityTypeInputPlugin.PluginTask,
-            FolderInputPlugin.PluginTask
+            FolderInputPlugin.PluginTask,
+            OpportunityInputPlugin.PluginTask,
+            OpportunityRoleInputPlugin.PluginTask
     {
         @Config("target")
         Target getTarget();
@@ -88,7 +92,9 @@ public class MarketoInputPluginDelegate
         PROGRAM_MEMBERS(new ProgramMembersBulkExtractInputPlugin()),
         LIST(new ListInputPlugin()),
         ACTIVITY_TYPE(new ActivityTypeInputPlugin()),
-        FOLDER(new FolderInputPlugin());
+        FOLDER(new FolderInputPlugin()),
+        OPPORTUNITY(new OpportunityInputPlugin()),
+        OPPORTUNITY_ROLE(new OpportunityRoleInputPlugin());
 
         private final RestClientInputPluginDelegate restClientInputPluginDelegate;
 

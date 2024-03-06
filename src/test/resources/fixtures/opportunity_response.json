@@ -1,0 +1,24 @@
+[
+  {
+    "seq": 0,
+    "marketoGUID": "marketoGUID_1",
+    "externalOpportunityId": "externalOpportunityId_1",
+    "updatedAt": "2023-07-20T06:53:20Z",
+    "createdAt": "2022-12-06T04:11:12Z"
+  },
+  {
+    "seq": 1,
+    "marketoGUID": "marketoGUID_2",
+    "externalOpportunityId": "externalOpportunityId_2",
+    "updatedAt": "2023-01-20T06:53:20Z",
+    "createdAt": "2023-01-06T04:11:12Z"
+  },
+  {
+    "seq": 2,
+    "marketoGUID": "marketoGUID_3",
+    "externalOpportunityId": "externalOpportunityId_3",
+    "updatedAt": "2024-02-20T06:53:20Z",
+    "createdAt": "2024-02-06T04:11:12Z"
+  }
+]
+
